@@ -1,0 +1,7 @@
+{
+  "name": "FlyerForge Pro",
+  "description": "An Adobe-caliber Art Director AI for generating production-ready, brand-compliant flyers with automated QA loops and prepress validation.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
