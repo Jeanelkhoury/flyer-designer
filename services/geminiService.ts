@@ -2,10 +2,14 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { BrandKit, Campaign, Assets, DesignJSON, QAReport } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+const getAI = () => {
+  const apiKey = import.meta.env.VITE_API_KEY || "";
+  return new GoogleGenAI({ apiKey });
+};
 
 export const validateInputsAndAskQuestions = async (brand: BrandKit, campaign: Campaign) => {
-  const model = "gemini-3-pro-preview";
+  const ai = getAI();
+  const model = "gemini-2.0-flash";
   const prompt = `
     SYSTEM ROLE: FlyerForge Pro - Lead Auditor.
     TASK: Check if the following campaign brief is production-ready.
@@ -32,7 +36,8 @@ export const validateInputsAndAskQuestions = async (brand: BrandKit, campaign: C
 };
 
 export const forgeStrategyAndConcepts = async (brand: BrandKit, campaign: Campaign, assets: Assets) => {
-  const model = "gemini-3-pro-preview";
+  const ai = getAI();
+  const model = "gemini-2.0-flash";
   const prompt = `
     SYSTEM ROLE: FlyerForge Pro - Art Director.
     TASK: Generate Creative Strategy and 3 Concept Variants (A/B/C) based on the BrandKit and Campaign brief.
@@ -70,7 +75,8 @@ export const forgeStrategyAndConcepts = async (brand: BrandKit, campaign: Campai
 };
 
 export const generateInitialDesign = async (brand: BrandKit, campaign: Campaign, assets: Assets, concept: any) => {
-  const model = "gemini-3-pro-preview";
+  const ai = getAI();
+  const model = "gemini-2.0-flash";
   const prompt = `
     TASK: Generate a production-ready Design JSON and a single self-contained SVG for the concept: "${concept.title}".
     
@@ -113,7 +119,8 @@ export const performQAAndIterate = async (
   currentSvg: string, 
   iterationCount: number
 ) => {
-  const model = "gemini-3-pro-preview";
+  const ai = getAI();
+  const model = "gemini-2.0-flash";
   const prompt = `
     SYSTEM ROLE: Brand Compliance Auditor.
     TASK: Perform a high-level Preflight & QA check for iteration #${iterationCount}.
